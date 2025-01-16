@@ -22,9 +22,14 @@ namespace HitokotoComponent
             _httpListenerServer.Start();
         }
 
-        public override void Dispose()
+        // 重写 Dispose 方法
+        protected override void Dispose(bool disposing)
         {
-            _httpListenerServer.Stop();
+            if (disposing)
+            {
+                _httpListenerServer.Stop();
+            }
+            base.Dispose(disposing);
         }
     }
 }
