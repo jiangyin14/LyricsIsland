@@ -1,9 +1,11 @@
-﻿using System;
+﻿// HttpListenerServer.cs
+
+using System;
 using System.Net;
 using System.IO;
 using System.Text;
 
-namespace HitokotoComponent
+namespace LyricsComponent
 {
     public class HttpListenerServer
     {
@@ -37,22 +39,22 @@ namespace HitokotoComponent
                 var request = context.Request;
                 var response = context.Response;
 
-                if (request.HttpMethod == "POST" && request.Url.LocalPath == "/taskbar/lyrics/lyrics")
+                if (request.HttpMethod == "POST" && request.Url.LocalPath == "/taskbar/lyrics/lyrics/")
                 {
                     using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
                     {
                         var json = await reader.ReadToEndAsync();
                         // 解析 JSON 数据，获取一言内容
-                        var hitokoto = ParseHitokotoFromJson(json);
+                        var lyrics = ParseLyricsFromJson(json);
                         // 更新界面上的一言内容
-                        UpdateHitokotoOnUI(hitokoto);
+                        UpdateLyricsOnUI(lyrics);
                     }
 
                     response.StatusCode = (int)HttpStatusCode.OK;
                     response.ContentType = "text/plain";
                     using (var writer = new StreamWriter(response.OutputStream))
                     {
-                        await writer.WriteAsync("Hitokoto updated successfully!");
+                        await writer.WriteAsync("Lyrics updated successfully!");
                     }
                 }
                 else
@@ -64,14 +66,14 @@ namespace HitokotoComponent
             }
         }
 
-        private string ParseHitokotoFromJson(string json)
+        private string ParseLyricsFromJson(string json)
         {
             // 解析 JSON 数据的逻辑
             // 这里只是一个示例，您需要根据实际的 JSON 格式来解析
             return json;
         }
 
-        private void UpdateHitokotoOnUI(string hitokoto)
+        private void UpdateLyricsOnUI(string lyrics)
         {
             // 更新界面上的一言内容的逻辑
             // 这里只是一个示例，您需要根据实际的 UI 框架来更新

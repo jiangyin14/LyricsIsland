@@ -1,13 +1,13 @@
 {
   "profiles": {
-    "HitokotoComponent": {
+    "LyricsComponent": {
       "commandName": "Project"
     },
     "配置文件 1": {
       "commandName": "Executable",
-      "executablePath": "D:\\Program Files\\ClassIsland\\ClassIsland.exe",
-      "commandLineArgs": "-epp D:\\Users\\Administrator\\Codes\\HitokotoComponent\\bin\\Debug\\net8.0-windows",
-      "workingDirectory": "D:\\Program Files\\ClassIsland"
+      "executablePath": "$(ClassIsland_DebugBinaryFile)",
+      "commandLineArgs": "-epp $(TargetDir)",
+      "workingDirectory": "$(ClassIsland_DebugBinaryDirectory)"
     }
   }
 }

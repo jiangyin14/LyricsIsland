@@ -1,13 +1,13 @@
-id: xingbiao.hitokoto  # 插件 id
-name: 一言  # 插件名称
+id: jiangyin14.lyrics  # 插件 id
+name: NCMBridge  # 插件名称
 apiVersion: 1.4.2.0  # 插件面向的 ClassIsland 版本
-description: 在主界面显示一言。  # 插件描述
-entranceAssembly: "HitokotoComponent.dll"  # 插件入口程序集
-url: https://github.com/xingbiao996/HitokotoComponent  # 插件 Url
-author: 星标  # 插件作者
+description: 在主界面上显示来自音乐软件的歌词。  # 插件描述
+entranceAssembly: "LyricsComponent.dll"  # 插件入口程序集
+url: https://github.com/jiangyin14/NCMBridge  # 插件 Url
+author: jiangyin14  # 插件作者
 version: 1.0.0.0  # 插件版本
 readme: README.md
 icon: icon.png
-repoOwner: xingbiao996
-repoName: HitokotoComponent
+repoOwner: jiangyin14
+repoName: LyricsComponent
 assetsRoot: master/.
