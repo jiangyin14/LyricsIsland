@@ -3,12 +3,14 @@ using ClassIsland.Core.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using ClassIsland.Core.Extensions.Registry;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HitokotoComponent
 {
     [PluginEntrance]
-    public class Plugin : PluginBase
+    public class Plugin : PluginBase, IDisposable
     {
+        private bool _disposed = false;
         private readonly HttpListenerServer _httpListenerServer;
 
         public Plugin()
@@ -22,14 +24,28 @@ namespace HitokotoComponent
             _httpListenerServer.Start();
         }
 
-        // 重写 Dispose 方法
-        protected override void Dispose(bool disposing)
+        // 实现 IDisposable 接口
+        public void Dispose()
         {
-            if (disposing)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // 重写 Dispose 方法
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
             {
-                _httpListenerServer.Stop();
+                if (disposing)
+                {
+                    // 在这里释放托管资源
+                    _httpListenerServer.Stop();
+                }
+
+                // 在这里释放非托管资源
+
+                _disposed = true;
             }
-            base.Dispose(disposing);
         }
     }
 }
