@@ -1,4 +1,4 @@
-﻿# LyricsComponent
+﻿# LyricsIsland
 
 **ClassIsland の 插件。可以在主界面显示歌词。**<br/>
 本插件将会在127.0.0.1:50063上监听，请确保不要占用该端口。
