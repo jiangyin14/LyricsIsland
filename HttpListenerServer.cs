@@ -39,7 +39,7 @@ namespace LyricsComponent
                 var request = context.Request;
                 var response = context.Response;
 
-                if (request.HttpMethod == "POST" && request.Url.LocalPath == "/taskbar/lyrics/lyrics/")
+                if (request.HttpMethod == "POST" && request.Url.LocalPath == "/component/lyrics/lyrics/")
                 {
                     using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
                     {

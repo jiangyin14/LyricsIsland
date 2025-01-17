@@ -13,7 +13,7 @@ using MaterialDesignThemes.Wpf;
 namespace LyricsComponent
 {
     [ComponentInfo(
-        "3DFE17BA-92D3-9E14-F5CA-CC9EE40C5F58",
+        "8214141d-6b3b-4ad3-9674-389845493492",
         "歌词",
         PackIconKind.CalendarOutline,
         "在主界面上显示来自音乐软件的歌词。"
@@ -22,7 +22,7 @@ namespace LyricsComponent
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly HttpListener _listener;
-        private readonly string _url = "http://127.0.0.1:54152/";
+        private readonly string _url = "http://127.0.0.1:50063/";
         private bool _isListening = false;
 
         public LyricsControl()
