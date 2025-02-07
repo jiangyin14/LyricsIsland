@@ -16,14 +16,15 @@ namespace LyricsComponent
         private readonly HttpListener _listener;
         private readonly string _url;
 
-        public string Lyrics { get; private set; }
-        public string ExtraLyrics { get; private set; }
+        public string Lyrics { get; private set; } = string.Empty;
+        public string ExtraLyrics { get; private set; } = string.Empty;
         
-        public HttpListenerServer(string url)
+        public HttpListenerServer(string url = "http://127.0.0.1:50063/")
         {
             _url = url;
             _listener = new HttpListener();
             _listener.Prefixes.Add(url);
+            Start();
         }
 
         public void Start()
