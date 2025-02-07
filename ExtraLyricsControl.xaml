@@ -1,0 +1,7 @@
+﻿<ci:ComponentBase
+    x:Class="LyricsComponent.ExtraLyricsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ci="http://classisland.tech/schemas/xaml/core">
+    <TextBlock x:Name="LyricsText" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+</ci:ComponentBase>

@@ -13,19 +13,19 @@ using MaterialDesignThemes.Wpf;
 namespace LyricsComponent
 {
     [ComponentInfo(
-        "8214141d-6b3b-4ad3-9674-389845493492",
-        "歌词",
-        PackIconKind.MusicNote,
+        "8214141d-6b3b-4ad3-9674-389945493492",
+        "歌词(第二行)",
+        PackIconKind.Music,
         "在主界面上显示来自音乐软件的歌词。"
     )]
-    public partial class LyricsControl : ComponentBase, IDisposable
+    public partial class ExtraLyricsControl : ComponentBase, IDisposable
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly HttpListener _listener;
         private readonly string _url = "http://127.0.0.1:50063/";
         private bool _isListening = false;
 
-        public LyricsControl()
+        public ExtraLyricsControl()
         {
             InitializeComponent();
             LoadLyricAsync();
@@ -139,7 +139,7 @@ namespace LyricsComponent
             try
             {
                 var jsonDoc = System.Text.Json.JsonDocument.Parse(json);
-                if (jsonDoc.RootElement.TryGetProperty("lyric", out var lyricElement))
+                if (jsonDoc.RootElement.TryGetProperty("extra", out var lyricElement))
                 {
                     return lyricElement.GetString();
                 }
