@@ -4,14 +4,21 @@ using System;
 using System.Net;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace LyricsComponent
 {
     public class HttpListenerServer
     {
+        public static HttpListenerServer? Current { get; set; }
+        
+        public event Action? OnLyricsReceived;
         private readonly HttpListener _listener;
         private readonly string _url;
 
+        public string Lyrics { get; private set; }
+        public string ExtraLyrics { get; private set; }
+        
         public HttpListenerServer(string url)
         {
             _url = url;
@@ -43,11 +50,11 @@ namespace LyricsComponent
                 {
                     using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
                     {
-                        var json = await reader.ReadToEndAsync();
-                        // 解析 JSON 数据，获取一言内容
-                        var lyrics = ParseLyricsFromJson(json);
-                        // 更新界面上的一言内容
-                        UpdateLyricsOnUI(lyrics);
+                        string json = await reader.ReadToEndAsync();
+                        // 解析 JSON 数据，获取歌词内容
+                        ParseLyricsFromJson(json);
+                        // 触发歌词已更新事件
+                        OnLyricsReceived?.Invoke();
                     }
 
                     response.StatusCode = (int)HttpStatusCode.OK;
@@ -66,17 +73,23 @@ namespace LyricsComponent
             }
         }
 
-        private string ParseLyricsFromJson(string json)
+        private void ParseLyricsFromJson(string json)
         {
-            // 解析 JSON 数据的逻辑
-            // 这里只是一个示例，您需要根据实际的 JSON 格式来解析
-            return json;
-        }
-
-        private void UpdateLyricsOnUI(string lyrics)
-        {
-            // 更新界面上的一言内容的逻辑
-            // 这里只是一个示例，您需要根据实际的 UI 框架来更新
+            try
+            {
+                var jsonDoc = System.Text.Json.JsonDocument.Parse(json);
+                if (jsonDoc.RootElement.TryGetProperty("lyric", out JsonElement lyricElement))
+                {
+                    Lyrics = lyricElement.GetString()!;
+                }
+                if (jsonDoc.RootElement.TryGetProperty("extra", out JsonElement extraLyricElement))
+                {
+                    ExtraLyrics = extraLyricElement.GetString()!;
+                }
+            }
+            catch (System.Text.Json.JsonException)
+            {
+            }
         }
     }
 }

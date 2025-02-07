@@ -13,15 +13,8 @@ namespace LyricsComponent
     [PluginEntrance]
     public class Plugin : PluginBase
     {
-        private readonly HttpListenerServer _httpListenerServer;
-        public Plugin()
-        {
-            _httpListenerServer = new HttpListenerServer("http://localhost:50063/");
-        }
-        
         public override void Initialize(HostBuilderContext context, IServiceCollection services)
         {
-            _httpListenerServer.Start();
             services.AddComponent<LyricsControl,InformationPage>();
             services.AddComponent<ExtraLyricsControl,InformationPage>();
         }
