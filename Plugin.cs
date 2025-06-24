@@ -1,10 +1,12 @@
 ﻿// Plugin.cs
 
-using ClassIsland.Core.Attributes;
+using ClassIsland.Core;
 using ClassIsland.Core.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
+using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Extensions.Registry;
-using HitokotoComponent;
+using ClassIsland.Shared;
+using LycheeLib.Interface;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Primitives;
 
@@ -15,8 +17,12 @@ namespace LyricsComponent
     {
         public override void Initialize(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddComponent<LyricsControl,InformationPage>();
-            services.AddComponent<ExtraLyricsControl,InformationPage>();
+            AppBase.Current.AppStarted += (_,_) =>
+            {
+                Rendezvous.Load(IAppHost.GetService<ILycheeLyrics>());
+            };
+            services.AddComponent<LyricsControl>();
+            services.AddComponent<ExtraLyricsControl>();
         }
     }
 }

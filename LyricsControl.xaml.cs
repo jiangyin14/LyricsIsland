@@ -23,29 +23,23 @@ namespace LyricsComponent
     {
         public LyricsControl()
         {
-            HttpListenerServer.Current ??= new HttpListenerServer();
-            _listener = HttpListenerServer.Current;
             InitializeComponent();
-            _listener.OnLyricsReceived += UpdateLyrics;
+            LycheeLib.Interface.Rendezvous.OnLyricsChanged += UpdateLyrics;
         }
 
-        readonly HttpListenerServer _listener;
+        private void UpdateLyrics(List<string> lyrics)
+        {
+            UpdateLyricOnUI(lyrics[0]);
+        }
         
         private void UpdateLyricOnUI(string lyric)
         {
             Dispatcher.Invoke(() => LyricsText.Text = lyric);
         }
 
-        void UpdateLyrics() {
-            UpdateLyricOnUI(_listener.Lyrics);
-        }
-
-        /// <summary>
-        /// 释放资源并停止 HTTP 监听器。
-        /// </summary>
         public void Dispose()
         {
-            _listener.OnLyricsReceived -= UpdateLyrics;
+            LycheeLib.Interface.Rendezvous.OnLyricsChanged -= UpdateLyrics;
         }
     }
 }
