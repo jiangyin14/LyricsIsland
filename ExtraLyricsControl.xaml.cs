@@ -19,28 +19,25 @@ namespace LyricsComponent
         "在主界面上显示来自音乐软件的歌词。"
     )]
     public partial class ExtraLyricsControl : ComponentBase,IDisposable {
-        public ExtraLyricsControl() {
-            HttpListenerServer.Current ??= new HttpListenerServer();
-            _listener = HttpListenerServer.Current;
+        public ExtraLyricsControl()
+        {
             InitializeComponent();
-            _listener.OnLyricsReceived += UpdateLyrics;
+            LycheeLib.Interface.Rendezvous.OnLyricsChanged += UpdateLyrics;
         }
 
-        readonly HttpListenerServer _listener;
-        
-        private void UpdateLyricOnUI(string lyric) {
+        private void UpdateLyrics(List<string> lyrics)
+        {
+            UpdateLyricOnUI(lyrics[1]);
+        }
+
+        private void UpdateLyricOnUI(string lyric)
+        {
             Dispatcher.Invoke(() => LyricsText.Text = lyric);
         }
 
-        void UpdateLyrics() {
-            UpdateLyricOnUI(_listener.ExtraLyrics);
-        }
-
-        /// <summary>
-        /// 释放资源并停止 HTTP 监听器。
-        /// </summary>
-        public void Dispose() {
-            _listener.OnLyricsReceived -= UpdateLyrics;
+        public void Dispose()
+        {
+            LycheeLib.Interface.Rendezvous.OnLyricsChanged -= UpdateLyrics;
         }
     }
 }

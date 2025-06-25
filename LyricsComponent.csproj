@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="ClassIsland.PluginSdk" Version="1.5.0.2" />
+    <PackageReference Include="LycheeLib.Interface" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

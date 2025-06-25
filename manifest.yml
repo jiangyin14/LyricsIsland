@@ -11,3 +11,5 @@ icon: icon.png
 repoOwner: jiangyin14
 repoName: LyricsIsland
 assetsRoot: master/.
+dependencies:
+  - id: ink.lipoly.ext.lychee
